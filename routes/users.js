@@ -12,7 +12,7 @@ function sleep(ms) {
 }
 
 async function demo() {
-  for (let i = 0; i < 3; i++) {
+  for (let i = 0; i < 2; i++) {
     console.log(`Starting for ${i * 1000} milisecond, i = ${i}`);
     sleep(i * 1000).then(() => {
       console.log(`Finished for ${i * 1000} milisecond, i = ${i}`);
