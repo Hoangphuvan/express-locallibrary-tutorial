@@ -24,7 +24,7 @@ mongoose.set("strictQuery", false);
 // const mongoDB =
 //   "mongodb+srv://cooluser:xwHKR16wp3khpuYI@cluster0.frnez.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
-const mongoDB = "mongodb://14.225.192.102";
+const mongoDB = "mongodb://14.225.192.102/local_library";
 
 main().catch((err) => console.log(err));
 
