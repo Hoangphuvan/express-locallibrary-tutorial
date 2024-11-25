@@ -41,4 +41,17 @@ app.use(function (err, req, res, next) {
   res.render("error");
 });
 
+// Set `strictQuery: false` to globally opt into filtering by properties that aren't in the schema
+// Included because it removes preparatory warnings for Mongoose 7.
+// See: https://mongoosejs.com/docs/migrating_to_6.html#strictquery-is-removed-and-replaced-by-strict
+mongoose.set("strictQuery", false);
+
+async function connectToDatabase() {
+  // define the database URL to connect to
+  const mongoDB = "mongodb://14.225.192.102/local_library";
+  await mongoose.connect(mongoDB);
+}
+
+connectToDatabase().catch((error) => debug(error));
+
 module.exports = app;
