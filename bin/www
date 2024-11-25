@@ -6,7 +6,7 @@
 
 var app = require("../app");
 var debug = require("debug")("express-locallibrary-tutorial:server");
-var http = require("http");
+//var http = require("http");
 
 // add by hoang
 const https = require("https");
@@ -24,18 +24,18 @@ const fs = require("fs");
  * Create HTTP server.
  */
 
-var httpServer = http.createServer(app);
+//var httpServer = http.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.
  */
-const httpPort = "80";
-httpServer.listen(httpPort);
-httpServer.on("error", onError);
-httpServer.on("listening", onHttpListening);
+// const httpPort = "80";
+// httpServer.listen(httpPort);
+// httpServer.on("error", onError);
+// httpServer.on("listening", onHttpListening);
 
-var key = fs.readFileSync(__dirname + "/../certs/selfsigned.key");
-var cert = fs.readFileSync(__dirname + "/../certs/selfsigned.crt");
+var key = fs.readFileSync(__dirname + "/../certs/selfsigned.key", "utf8");
+var cert = fs.readFileSync(__dirname + "/../certs/selfsigned.crt", "utf8");
 var options = {
   key: key,
   cert: cert,
