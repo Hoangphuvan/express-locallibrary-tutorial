@@ -8,27 +8,45 @@ var app = require("../app");
 var debug = require("debug")("express-locallibrary-tutorial:server");
 var http = require("http");
 
+// add by hoang
+const https = require("https");
+const fs = require("fs");
+
 /**
  * Get port from environment and store in Express.
  */
 
-debug(`process.env.PORT: ${process.env.PORT}`); // added by hoang
-var port = normalizePort(process.env.PORT || "80");
-app.set("port", port);
+// debug(`process.env.PORT: ${process.env.PORT}`); // added by hoang
+// var port = normalizePort(process.env.PORT || "80");
+// app.set("port", port);
 
 /**
  * Create HTTP server.
  */
 
-var server = http.createServer(app);
+var httpServer = http.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.
  */
+const httpPort = "80";
+httpServer.listen(httpPort);
+httpServer.on("error", onError);
+httpServer.on("listening", onHttpListening);
 
-server.listen(port);
-server.on("error", onError);
-server.on("listening", onListening);
+var key = fs.readFileSync(__dirname + "/../certs/selfsigned.key");
+var cert = fs.readFileSync(__dirname + "/../certs/selfsigned.crt");
+var options = {
+  key: key,
+  cert: cert,
+};
+
+var httpsServer = https.createServer(options, app);
+
+const httpsPort = "443";
+httpsServer.listen(httpsPort);
+httpsServer.on("error", onError);
+httpsServer.on("listening", onHttpsListening);
 
 /**
  * Normalize a port into a number, string, or false.
@@ -79,9 +97,14 @@ function onError(error) {
 /**
  * Event listener for HTTP server "listening" event.
  */
+function onHttpListening() {
+  var addr = httpServer.address();
+  var bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
+  debug("Listening on " + bind);
+}
 
-function onListening() {
-  var addr = server.address();
+function onHttpsListening() {
+  var addr = httpsServer.address();
   var bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
   debug("Listening on " + bind);
 }
