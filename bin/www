@@ -34,8 +34,8 @@ const fs = require("fs");
 // httpServer.on("error", onError);
 // httpServer.on("listening", onHttpListening);
 
-var key = fs.readFileSync(__dirname + "/../certs/key.pem");
-var cert = fs.readFileSync(__dirname + "/../certs/cert.pem");
+var key = fs.readFileSync(__dirname + "/../certs/private.key");
+var cert = fs.readFileSync(__dirname + "/../certs/certificate.crt");
 var options = {
   key: key,
   cert: cert,
