@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { genre_url } = require("../../constants/local_library_contant");
+const { genre_url } = require("../../constants/local-library-constant");
 
 const GenreSchema = new mongoose.Schema({
   name: { type: String, required: true },

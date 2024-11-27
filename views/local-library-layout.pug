@@ -1,0 +1,34 @@
+extends layout
+
+block content 
+    div(class='container-fluid')
+        div(class='row')
+            div(class='col-sm-2')
+                block sidebar
+                    ul(class='sidebar-nav')
+                        li
+                            a(href=home_url) Home
+                        li
+                        li
+                            a(href=local_library_url) Local library home
+                        li
+                            a(href=local_library_url + '/books') All books
+                        li
+                            a(href=local_library_url + '/authors') All authors
+                        li
+                            a(href=local_library_url + '/catalog/genres') All genres
+                        li
+                            a(href=local_library_url + '/catalog/bookinstances') All book-instances
+                        li
+                            hr
+                        li
+                            a(href=local_library_url + '/author/create') Create new author
+                        li
+                            a(href=local_library_url + '/genre/create') Create new genre
+                        li
+                            a(href=local_library_url + '/book/create') Create new book
+                        li
+                            a(href=local_library_url + '/bookinstance/create') Create new book instance (copy)
+
+            div(class='col-sm-10')
+                block local_library_content

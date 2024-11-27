@@ -7,10 +7,10 @@ console.log(
 // Get arguments passed on command line
 const userArgs = process.argv.slice(2);
 
-const Book = require("./models/local_library/book");
-const Author = require("./models/local_library/author");
-const Genre = require("./models/local_library/genre");
-const BookInstance = require("./models/local_library/bookinstance");
+const Book = require("./models/local-library/book");
+const Author = require("./models/local-library/author");
+const Genre = require("./models/local-library/genre");
+const BookInstance = require("./models/local-library/bookinstance");
 
 const genres = [];
 const authors = [];

@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-var { author_url } = require("../../constants/local_library_contant");
+var { author_url } = require("../../constants/local-library-constant");
 
 const Schema = mongoose.Schema;
 

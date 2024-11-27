@@ -8,6 +8,8 @@ const debug = require("debug")("express-locallibrary-tutorial:server");
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
+var localLibraryRouter = require("./routes/local-library");
+var { local_library_url } = require("./constants/local-library-constant");
 
 var app = express();
 
@@ -23,9 +25,12 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
+app.use(local_library_url, localLibraryRouter);
 
 // added by hoang: https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/Introduction#handling_errors
-// catch 404 and forward to error handler
+// catch 404 and forward to error handler: 404 Not found
+// Note: HTTP404 and other "error" status codes are not treated as errors. If you want to handle these, you can add a middleware function to do so. For more information see the FAQ
+// https://expressjs.com/en/starter/faq.html#how-do-i-handle-404-responses
 app.use(function (req, res, next) {
   next(createError(404));
 });
@@ -38,7 +43,7 @@ app.use(function (err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render("error");
+  res.render("error", { title: err.message });
 });
 
 // Set `strictQuery: false` to globally opt into filtering by properties that aren't in the schema
