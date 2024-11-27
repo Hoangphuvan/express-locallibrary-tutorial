@@ -1,17 +1,16 @@
 #! /usr/bin/env node
 
 console.log(
-  //This script populates some test books, authors, genres and bookinstances to your database. Specified database as argument - e.g.: node populatedb "mongodb+srv://cooluser:coolpassword@cluster0.cojoign.mongodb.net/local_library?retryWrites=true&w=majority&appName=Cluster0"'
-  'This script populates some test books, authors, genres and bookinstances to your database. Specified database as argument - e.g.: node populatedb "mongodb://14.225.192.102"'
+  'This script populates some test books, authors, genres and bookinstances to your database. Specified database as argument - e.g.: node populatedb "mongodb://14.225.192.102/local_library"'
 );
 
 // Get arguments passed on command line
 const userArgs = process.argv.slice(2);
 
-const Book = require("./models/book");
-const Author = require("./models/author");
-const Genre = require("./models/genre");
-const BookInstance = require("./models/bookinstance");
+const Book = require("./models/local_library/book");
+const Author = require("./models/local_library/author");
+const Genre = require("./models/local_library/genre");
+const BookInstance = require("./models/local_library/bookinstance");
 
 const genres = [];
 const authors = [];
@@ -20,9 +19,6 @@ const bookinstances = [];
 
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
-
-// const mongoDB =
-//   "mongodb+srv://cooluser:xwHKR16wp3khpuYI@cluster0.frnez.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
 const mongoDB = "mongodb://14.225.192.102/local_library";
 

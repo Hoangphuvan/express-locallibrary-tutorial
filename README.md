@@ -18,3 +18,5 @@ How to run the app:
 
     npm run start_linux if run on linux os
     npm run run_windows_command_prompt if run on windows os
+
+Link to generate ssl for free. expired day: Feb 24, 2025
