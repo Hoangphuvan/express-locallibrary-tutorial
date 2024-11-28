@@ -33,7 +33,17 @@ module.exports.index = asyncHandler(async (req, res, next) => {
 });
 
 module.exports.book_list = asyncHandler(async (req, res, next) => {
-  res.send("Not implemented");
+  const allBooks = await Book.find({}, "title author")
+    .sort({ title: 1 })
+    .populate("author")
+    .exec();
+
+  res.render("book_list", {
+    title: "Book List",
+    local_library_url: local_library_url,
+    home_url: home_url,
+    book_list: allBooks,
+  });
 });
 
 module.exports.book_detail = asyncHandler(async (req, res, next) => {
