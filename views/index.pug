@@ -1,19 +1,12 @@
 extends layout
 
 block content
-    div(class='container-fluid')
-        div(class='row')
-            div(class='col-sm-2')
-                block sidebar
-                    div(class='sidebar-nav')
-                        h1= title
-                        div(style='margin-left:20px;margin-top:20px')
-                            h2(style='font-size:1.5rem') #[strong Proof of concept]:
-                            hr
-                            a(href=local_library_url)
-                                span Local Library
-
-            div(class='col-sm-10')
-                block index_content
-
-
+    div(style='margin-left:20px;')
+        h1= title
+        a(href=local_library_url) Local Library
+        |, the website are using the following main parts:
+        ul
+            li Node.js is an open-source and cross-platform Javascript runtime enviroment.
+            li Express web framework(backend) for Node.js.
+            li Pug template engine.
+            li MongoDB database.

@@ -14,7 +14,10 @@ var { local_library_url } = require("./constants/local-library-constant");
 var app = express();
 
 // view engine setup
-app.set("views", path.join(__dirname, "views"));
+app.set("views", [
+  path.join(__dirname, "views"),
+  path.join(__dirname, "views/local-library"), // added by hoang
+]);
 app.set("view engine", "pug");
 
 app.use(logger("dev"));
@@ -53,8 +56,10 @@ mongoose.set("strictQuery", false);
 
 async function connectToDatabase() {
   // define the database URL to connect to
+  console.log("connecting to database");
   const mongoDB = "mongodb://14.225.192.102/local_library";
   await mongoose.connect(mongoDB);
+  console.log("connected to database successfully");
 }
 
 connectToDatabase().catch((error) => debug(error));
