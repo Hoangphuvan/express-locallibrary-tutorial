@@ -4,7 +4,13 @@ const { local_library_url } = require("../../constants/local-library-constant");
 const { home_url } = require("../../constants/app-constant");
 
 module.exports.author_list = asyncHandler(async (req, res, next) => {
-  res.send("Not implemented");
+  const allAuthors = await Author.find().sort({ family_name: -1 }).exec();
+  res.render("author-list", {
+    title: "Author list",
+    local_library_url: local_library_url,
+    home_url: home_url,
+    author_list: allAuthors,
+  });
 });
 
 module.exports.author_detail = asyncHandler(async (req, res, next) => {
