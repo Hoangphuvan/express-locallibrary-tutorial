@@ -14,7 +14,11 @@ const BookinstanceSchema = new mongoose.Schema({
 });
 
 BookinstanceSchema.virtual("url").get(function () {
-  return `${bookinstance_url}${this_id}`;
+  return `${bookinstance_url}${this._id}`;
+});
+
+BookinstanceSchema.virtual("due_back_").get(function () {
+  return this.due_back.toISOString();
 });
 
 module.exports = mongoose.model("Bookinstance", BookinstanceSchema);

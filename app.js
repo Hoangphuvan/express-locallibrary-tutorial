@@ -10,6 +10,7 @@ var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var localLibraryRouter = require("./routes/local-library");
 var { local_library_url } = require("./constants/local-library-constant");
+var { mongo_db } = require("./constants/db-connection-string");
 
 var app = express();
 
@@ -56,10 +57,7 @@ mongoose.set("strictQuery", false);
 
 async function connectToDatabase() {
   // define the database URL to connect to
-  console.log("connecting to database");
-  const mongoDB = "mongodb://14.225.192.102/local_library";
-  await mongoose.connect(mongoDB);
-  console.log("connected to database successfully");
+  await mongoose.connect(mongo_db);
 }
 
 connectToDatabase().catch((error) => debug(error));

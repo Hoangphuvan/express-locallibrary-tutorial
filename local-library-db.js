@@ -1,7 +1,7 @@
 #! /usr/bin/env node
-
+var { mongo_db } = require("./constants/db-connection-string");
 console.log(
-  'This script populates some test books, authors, genres and bookinstances to your database. Specified database as argument - e.g.: node populatedb "mongodb://14.225.192.102/local_library"'
+  `This script populates some test books, authors, genres and bookinstances to your database. Specified database as argument - e.g.: node populatedb ${mongo_db}`
 );
 
 // Get arguments passed on command line
@@ -20,13 +20,11 @@ const bookinstances = [];
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
 
-const mongoDB = "mongodb://14.225.192.102/local_library";
-
 main().catch((err) => console.log(err));
 
 async function main() {
   console.log("Debug: About to connect");
-  await mongoose.connect(mongoDB);
+  await mongoose.connect(mongo_db);
   console.log("Debug: Should be connected?");
   await createGenres();
   await createAuthors();
