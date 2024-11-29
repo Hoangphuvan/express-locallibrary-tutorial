@@ -5,7 +5,7 @@ const { home_url } = require("../../constants/app-constant");
 
 module.exports.bookinstance_list = asyncHandler(async (req, res, next) => {
   const bookinstances = await Bookinstance.find().populate("book").exec();
-  res.render("bookinstance_list", {
+  res.render("bookinstance-list", {
     title: "Book Instance List",
     local_library_url: local_library_url,
     home_url: home_url,

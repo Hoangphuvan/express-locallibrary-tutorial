@@ -38,7 +38,7 @@ module.exports.book_list = asyncHandler(async (req, res, next) => {
     .populate("author")
     .exec();
 
-  res.render("book_list", {
+  res.render("book-list", {
     title: "Book List",
     local_library_url: local_library_url,
     home_url: home_url,

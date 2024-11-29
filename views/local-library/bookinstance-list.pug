@@ -1,6 +1,6 @@
 extends lb-layout 
 
-block main_content
+block main-content
     h1= title
     if bookinstance_list.length
         ol
@@ -14,6 +14,6 @@ block main_content
                     else
                         span.text-warning #{bookinstance.status}
                     if bookinstance.status != "Available"
-                        span  (date when book available: #{bookinstance.due_back_yyyy_mm_dd})
+                        span  (date when book available: #{bookinstance.due_back_formatted})
     else
         p There are no book copies in this library.
