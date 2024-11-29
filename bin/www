@@ -44,6 +44,7 @@ var options = {
 var httpsServer = https.createServer(options, app);
 
 const httpsPort = "443";
+const port = httpsPort;
 httpsServer.listen(httpsPort);
 httpsServer.on("error", onError);
 httpsServer.on("listening", onHttpsListening);
@@ -53,14 +54,14 @@ httpsServer.on("listening", onHttpsListening);
  */
 
 function normalizePort(val) {
-  var port = parseInt(val, 10);
+  var httpsPort = parseInt(val, 10);
 
   if (isNaN(port)) {
     // named pipe
     return val;
   }
 
-  if (port >= 0) {
+  if (httpsPort >= 0) {
     // port number
     return port;
   }
