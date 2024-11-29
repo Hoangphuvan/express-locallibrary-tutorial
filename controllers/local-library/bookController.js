@@ -47,7 +47,24 @@ module.exports.book_list = asyncHandler(async (req, res, next) => {
 });
 
 module.exports.book_detail = asyncHandler(async (req, res, next) => {
-  res.send("Not implemented");
+  const [book, allBookinstances] = await Promise.all([
+    Book.findById(req.params.id).populate("author").populate("genre").exec(),
+    BookInstance.find({ book: req.params.id }).exec(),
+  ]);
+
+  if (book === null) {
+    const err = new Error("Book not found");
+    err.status = 404;
+    return next(err);
+  }
+
+  res.render("book-detail", {
+    title: "Book detail",
+    local_library_url: local_library_url,
+    home_url: home_url,
+    book: book,
+    book_instances: allBookinstances,
+  });
 });
 
 module.exports.book_create_get = asyncHandler(async (req, res, next) => {
