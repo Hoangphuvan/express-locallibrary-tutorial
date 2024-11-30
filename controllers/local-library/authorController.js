@@ -1,4 +1,5 @@
 const Author = require("../../models/local-library/author");
+const Book = require("../../models/local-library/book");
 const asyncHandler = require("express-async-handler");
 const { local_library_url } = require("../../constants/local-library-constant");
 const { home_url } = require("../../constants/app-constant");
@@ -14,7 +15,18 @@ module.exports.author_list = asyncHandler(async (req, res, next) => {
 });
 
 module.exports.author_detail = asyncHandler(async (req, res, next) => {
-  res.send("Not implemented");
+  const [author, booksByAuthor] = await Promise.all([
+    Author.findById(req.params.id).exec(),
+    Book.find({ author: req.params.id }, "title summary").exec(),
+  ]);
+
+  res.render("author-detail", {
+    title: "Author detail",
+    local_library_url: local_library_url,
+    home_url: home_url,
+    author: author,
+    book_list: booksByAuthor,
+  });
 });
 
 module.exports.author_create_get = asyncHandler(async (req, res, next) => {

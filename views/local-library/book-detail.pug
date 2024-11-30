@@ -1,4 +1,32 @@
 extends lb-layout
 
 block main-content
-    h1= title
+    h1 Title: #{book.title}
+    p #[strong Author:] 
+        a(href=book.author.url) #{book.author.name}
+    p #[strong Summary:] #{book.summary}
+    p #[strong ISBN:] #{book.isbn}
+    p #[strong Genre:]
+        if book.genre.length
+            each val in book.genre
+                a(href=val.url)  #{val.name},
+    div(style='margin-left:20px;margin-top:20px')
+        h2(style='font-size:1.5rem') Copies:
+        hr
+        if book_instances.length
+            each book in book_instances
+                if book.status === 'Available'
+                    p.text-success #{book.status}
+                else if book.status == 'Maintenance'
+                    p.text-danger #{book.status}
+                else 
+                    p.text-warning #{book.status}
+                p #[strong Imprint:] #{book.imprint}
+                if book.status != 'Available'
+                    p #[strong Date when book available:] #{book.due_back_formatted}
+                p #[strong Id:]
+                    a(href=book.url)  #{book._id}
+                hr
+
+        else
+            p This book has no copy.
