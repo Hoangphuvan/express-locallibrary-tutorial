@@ -4,11 +4,13 @@ block main-content
     h1= title
     div(style='margin-left:20px;margin-top:20px')
         h2(style='font-size:1.5rem') Books
+        hr
         if genre_books.length
             dl
                 each book in genre_books
                     dt
                         a(href=book.url) #{book.title}
                     dd #{book.summary}
+                    hr
         else
             p This genre has no books.

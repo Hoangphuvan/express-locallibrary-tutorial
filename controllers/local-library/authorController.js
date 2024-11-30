@@ -20,6 +20,12 @@ module.exports.author_detail = asyncHandler(async (req, res, next) => {
     Book.find({ author: req.params.id }, "title summary").exec(),
   ]);
 
+  if (author === null) {
+    const err = new Error("Author not found");
+    err.status = 404;
+    return next(err);
+  }
+
   res.render("author-detail", {
     title: "Author detail",
     local_library_url: local_library_url,

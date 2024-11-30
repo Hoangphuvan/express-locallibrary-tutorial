@@ -1,0 +1,16 @@
+extends lb-layout
+
+block main-content
+    h1 ID: #{bookinstance._id}
+    hr
+    p #[strong Title:]
+        a(href=bookinstance.book.url)  #{bookinstance.book.title}
+    p #[strong Imprint:] #{bookinstance.imprint}
+    if bookinstance.status == "Available"
+        p.text-success #{bookinstance.status}
+    else if bookinstance.status == "Maintenance"
+        p.text-danger #{bookinstance.status}
+    else 
+        p.text-warning #{bookinstance.status}
+    if bookinstance.status != "Available"
+        p #[strong Date when book available:]  #{bookinstance.due_back_formatted}

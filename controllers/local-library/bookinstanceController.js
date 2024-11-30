@@ -14,7 +14,22 @@ module.exports.bookinstance_list = asyncHandler(async (req, res, next) => {
 });
 
 module.exports.bookinstance_detail = asyncHandler(async (req, res, next) => {
-  res.send("Not implemented");
+  const bookinstance = await Bookinstance.findById(req.params.id)
+    .populate("book")
+    .exec();
+
+  if (bookinstance === null) {
+    const err = new Error("Book Instance not found");
+    err.status = 404;
+    return next(err);
+  }
+
+  res.render("bookinstance-detail", {
+    title: "Book Instance Detail",
+    local_library_url: local_library_url,
+    home_url: home_url,
+    bookinstance: bookinstance,
+  });
 });
 
 module.exports.bookinstance_create_get = asyncHandler(
