@@ -71,7 +71,7 @@ module.exports.genre_create_post = [
     } else {
       // data from form is valid
       // check existing the name
-      const genreFetch = await Genre.findOne(genre.name)
+      const genreFetch = await Genre.findOne({ name: genre.name })
         .collation({ locale: "en", strength: 2 })
         .exec();
       if (genreFetch) {
@@ -80,7 +80,7 @@ module.exports.genre_create_post = [
       } else {
         // save the genre to database and then redirect to the genre detail page
         await genre.save();
-        res.redirect(allgenre_url);
+        res.redirect(genre.url);
       }
     }
   }),
