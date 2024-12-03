@@ -4,16 +4,16 @@ block main-content
     h1= title 
     form(method='POST')
         div.form-group
-            lable(for='first_name')
+            lable(for='first_name') First name:
             input#first_name.form-control(type='text' placeholder='First name' name='first_name' required value=(undefined===author? '': author.first_name))
         div.form-group
-            lable(for='family_name')
+            lable(for='family_name') Family name:
             input#family_name.form-control(type='text' placeholder='Family name' name='family_name' required value=(undefined===author? '': author.family_name))
         div.form-group
-            lable(for='date_of_birth')
+            lable(for='date_of_birth') Date of birth:
             input#date_of_birth.form-control(type='date' name='date_of_birth' required value=(undefined===author? '': author.date_of_birth))
         div.form-group
-            lable(for='date_of_death')
+            lable(for='date_of_death') Date of death:
             input#date_of_death.form-control(type='date' name='date_of_death' required value=(undefined===author? '': author.date_of_death))
         button.btn.btn-primary(type='submit') Submit 
 
