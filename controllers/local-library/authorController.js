@@ -145,6 +145,47 @@ module.exports.author_update_get = asyncHandler(async (req, res, next) => {
   });
 });
 
-module.exports.author_update_post = asyncHandler(async (req, res, next) => {
-  res.send("Not implemented");
-});
+module.exports.author_update_post = [
+  body("first_name", "First name must be not empty.")
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  body("family_name", "Family name must be not empty.")
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  body("date_of_birth", "Date of birth is invalid.")
+    .trim()
+    .optional({ values: "falsy" })
+    .isISO8601()
+    .escape(),
+  body("date_of_death", "Date of death is invalid.")
+    .trim()
+    .optional({ values: "falsy" })
+    .isISO8601()
+    .escape(),
+  asyncHandler(async (req, res, next) => {
+    const author = new Author({
+      _id: req.params.id,
+      first_name: req.body.first_name,
+      family_name: req.body.family_name,
+      date_of_birth: req.body.date_of_birth,
+      date_of_death: req.body.date_of_death,
+    });
+
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      res.render("author-form", {
+        title: "Update Author",
+        local_library_url: local_library_url,
+        home_url: home_url,
+        author: author,
+        errors: errors.array(),
+      });
+    } else {
+      await Author.findByIdAndUpdate(author._id, author).exec();
+      res.redirect(author.url);
+    }
+  }),
+];
