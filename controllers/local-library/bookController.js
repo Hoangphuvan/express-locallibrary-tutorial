@@ -181,7 +181,20 @@ module.exports.book_delete_post = asyncHandler(async (req, res, next) => {
 });
 
 module.exports.book_update_get = asyncHandler(async (req, res, next) => {
-  res.send("Not implemented");
+  const [book, allauthors, allgenres] = await Promise.all([
+    Book.findById(req.params.id).exec(),
+    Author.find().sort({ family_name: -1 }).exec(),
+    Genre.find().sort({ name: 1 }).exec(),
+  ]);
+
+  res.render("book-form", {
+    title: "Update Book",
+    local_library_url: local_library_url,
+    home_url: home_url,
+    book: book,
+    author_list: allauthors,
+    genre_list: allgenres,
+  });
 });
 
 module.exports.book_update_post = asyncHandler(async (req, res, next) => {
