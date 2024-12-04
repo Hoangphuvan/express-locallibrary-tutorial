@@ -1,0 +1,8 @@
+extends lb-layout
+
+block main-content
+    h1 ID: #{bookinstance._id}
+    p Do you really want to delete this copy?
+    form(method='POST')
+        input.form-control(type='hidden' value=bookinstance._id name='bookinstanceid')
+        button.btn.btn-primary(type='submit') Submit

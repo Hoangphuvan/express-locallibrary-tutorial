@@ -1,7 +1,10 @@
 const Bookinstance = require("../../models/local-library/bookinstance");
 const Book = require("../../models/local-library/book");
 const asyncHandler = require("express-async-handler");
-const { local_library_url } = require("../../constants/local-library-constant");
+const {
+  local_library_url,
+  all_bookinstances_url,
+} = require("../../constants/local-library-constant");
 const { home_url } = require("../../constants/app-constant");
 const { body, validationResult } = require("express-validator");
 
@@ -84,12 +87,19 @@ module.exports.bookinstance_create_post = [
 
 module.exports.bookinstance_delete_get = asyncHandler(
   async (req, res, next) => {
-    res.send("Not implemented");
+    const bookinstance = await Bookinstance.findById(req.params.id).exec();
+    res.render("bookinstance-delete", {
+      title: "Delete Book Instance",
+      local_library_url: local_library_url,
+      home_url: home_url,
+      bookinstance: bookinstance,
+    });
   }
 );
 module.exports.bookinstance_delete_post = asyncHandler(
   async (req, res, next) => {
-    res.send("Not implemented");
+    await Bookinstance.findByIdAndDelete(req.body.bookinstanceid).exec();
+    res.redirect(all_bookinstances_url);
   }
 );
 
