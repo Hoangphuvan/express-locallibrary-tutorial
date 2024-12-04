@@ -187,6 +187,12 @@ module.exports.book_update_get = asyncHandler(async (req, res, next) => {
     Genre.find().sort({ name: 1 }).exec(),
   ]);
 
+  for (const genre of allgenres) {
+    if (book.genre.includes(genre._id)) {
+      genre.checked = true;
+    }
+  }
+
   res.render("book-form", {
     title: "Update Book",
     local_library_url: local_library_url,
@@ -197,6 +203,65 @@ module.exports.book_update_get = asyncHandler(async (req, res, next) => {
   });
 });
 
-module.exports.book_update_post = asyncHandler(async (req, res, next) => {
-  res.send("Not implemented");
-});
+module.exports.book_update_post = [
+  (req, res, next) => {
+    if (!Array.isArray(req.body.genre)) {
+      req.body.genre =
+        typeof req.body.genre === undefined ? [] : [req.body.genre];
+    }
+    next();
+  },
+
+  body("title", "Title must be specified.")
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  body("author", "Author must be specified.")
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  body("summary", "Summary must be specified.")
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  body("genre.*").escape(),
+
+  asyncHandler(async (req, res, next) => {
+    const book = new Book({
+      title: req.body.title,
+      author: req.body.author,
+      summary: req.body.summary,
+      isbn: req.body.isbn,
+      genre: req.body.genre,
+      _id: req.params.id,
+    });
+
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      const [allauthors, allgenres] = await Promise.all([
+        Author.find().sort({ family_name: -1 }).exec(),
+        Genre.find().sort({ name: 1 }).exec(),
+      ]);
+
+      for (const genre of allgenres) {
+        if (book.includes(genre._id)) {
+          genre.checked = true;
+        }
+      }
+
+      res.render("book-form", {
+        title: "Create Book",
+        local_library_url: local_library_url,
+        home_url: home_url,
+        book: book,
+        author_list: allauthors,
+        genre_list: allgenres,
+        errors: errors.array(),
+      });
+    } else {
+      await Book.findByIdAndUpdate(req.params.id, book).exec();
+      res.redirect(book.url);
+    }
+  }),
+];
