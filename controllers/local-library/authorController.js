@@ -136,7 +136,13 @@ module.exports.author_delete_post = asyncHandler(async (req, res, next) => {
 });
 
 module.exports.author_update_get = asyncHandler(async (req, res, next) => {
-  res.send("Not implemented");
+  const author = await Author.findById(req.params.id).exec();
+  res.render("author-form", {
+    title: "Update Author",
+    local_library_url: local_library_url,
+    home_url: home_url,
+    author: author,
+  });
 });
 
 module.exports.author_update_post = asyncHandler(async (req, res, next) => {

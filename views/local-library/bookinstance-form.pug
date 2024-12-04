@@ -33,7 +33,7 @@ block main-content
                         option(value=item) #{item}
         div.form-group
             lable(for='due_back') Date when book a available:
-            input#due_back.form-control(type='date' name='due_back' required value=(undefined===bookinstance?'': bookinstance.due_back))
+            input#due_back.form-control(type='date' name='due_back' required value=(undefined===bookinstance?'': bookinstance.due_back_yyyy_mm_dd))
         button.btn.btn-primary(type='submit') Submit
 
     div.form-group
