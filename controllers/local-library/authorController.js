@@ -1,7 +1,10 @@
 const Author = require("../../models/local-library/author");
 const Book = require("../../models/local-library/book");
 const asyncHandler = require("express-async-handler");
-const { local_library_url } = require("../../constants/local-library-constant");
+const {
+  local_library_url,
+  all_authors_url,
+} = require("../../constants/local-library-constant");
 const { home_url } = require("../../constants/app-constant");
 const { body, validationResult } = require("express-validator");
 
@@ -90,11 +93,46 @@ module.exports.author_create_post = [
 ];
 
 module.exports.author_delete_get = asyncHandler(async (req, res, next) => {
-  res.send("Not implemented");
+  const [author, booksByAuthor] = await Promise.all([
+    Author.findById(req.params.id).exec(),
+    Book.find({ author: req.params.id }, "title summary")
+      .sort({ title: -1 })
+      .exec(),
+  ]);
+
+  if (author == null) {
+    res.redirect(all_authors_url);
+  } else {
+    res.render("author-delete.pug", {
+      title: "Delete Author",
+      local_library_url: local_library_url,
+      home_url: home_url,
+      author: author,
+      book_list: booksByAuthor,
+    });
+  }
 });
 
 module.exports.author_delete_post = asyncHandler(async (req, res, next) => {
-  res.send("Not implemented");
+  const [author, booksByAuthor] = await Promise.all([
+    Author.findById(req.params.id).exec(),
+    Book.find({ author: req.params.id }, "title summary")
+      .sort({ title: -1 })
+      .exec(),
+  ]);
+
+  if (booksByAuthor.length > 0) {
+    res.render("author-delete.pug", {
+      title: "Delete Author",
+      local_library_url: local_library_url,
+      home_url: home_url,
+      author: author,
+      book_list: booksByAuthor,
+    });
+  } else {
+    await Author.findByIdAndDelete(req.body.authorid).exec();
+    res.redirect(all_authors_url);
+  }
 });
 
 module.exports.author_update_get = asyncHandler(async (req, res, next) => {

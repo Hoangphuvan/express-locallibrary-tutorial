@@ -1,9 +1,9 @@
 export const local_library_url = "/local-library";
 export const author_url = `${local_library_url}/author/`;
-//export const all_authors_url = `${local_library_url}/authors`;
+export const all_authors_url = `${local_library_url}/authors`;
 export const book_url = `${local_library_url}/book/`;
-//export const all_books_url = `${local_library_url}/books`;
+export const all_books_url = `${local_library_url}/books`;
 export const bookinstance_url = `${local_library_url}/bookinstance/`;
-//export const all_bookinstances_url = `${local_library_url}/bookinstances`;
+export const all_bookinstances_url = `${local_library_url}/bookinstances`;
 export const genre_url = `${local_library_url}/genre/`;
-//export const all_genres_url = `${local_library_url}/genres`;
+export const all_genres_url = `${local_library_url}/genres`;

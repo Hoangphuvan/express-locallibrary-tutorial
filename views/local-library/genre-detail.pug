@@ -1,7 +1,7 @@
 extends lb-layout
 
 block main-content
-    h1= title
+    h1 Name: #{genre.name}
     div(style='margin-left:20px;margin-top:20px')
         h2(style='font-size:1.5rem') Books
         hr
@@ -14,3 +14,8 @@ block main-content
                     hr
         else
             p This genre has no books.
+    hr
+    p
+        a(href=genre.url +'/delete') Delete genre
+    p
+        a(href=genre.url +'/update') Update genre
