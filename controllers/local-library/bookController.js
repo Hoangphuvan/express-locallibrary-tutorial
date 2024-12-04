@@ -3,7 +3,10 @@ const BookInstance = require("../../models/local-library/bookinstance");
 const Genre = require("../../models/local-library/genre");
 const Author = require("../../models/local-library/author");
 const asyncHandler = require("express-async-handler");
-const { local_library_url } = require("../../constants/local-library-constant");
+const {
+  local_library_url,
+  all_books_url,
+} = require("../../constants/local-library-constant");
 const { home_url } = require("../../constants/app-constant");
 const { body, validationResult } = require("express-validator");
 
@@ -145,11 +148,36 @@ module.exports.book_create_post = [
 ];
 
 module.exports.book_delete_get = asyncHandler(async (req, res, next) => {
-  res.send("Not implemented");
+  const [book, allBookInstances] = await Promise.all([
+    Book.findById(req.params.id).exec(),
+    BookInstance.find({ book: req.params.id }).exec(),
+  ]);
+  res.render("book-delete", {
+    title: "Delete Book",
+    local_library_url: local_library_url,
+    home_url: home_url,
+    book: book,
+    bookinstance_list: allBookInstances,
+  });
 });
 
 module.exports.book_delete_post = asyncHandler(async (req, res, next) => {
-  res.send("Not implemented");
+  const [book, allBookInstances] = await Promise.all([
+    Book.findById(req.params.id).exec(),
+    BookInstance.find({ book: req.params.id }).exec(),
+  ]);
+  if (allBookInstances.length > 0) {
+    res.render("book-delete", {
+      title: "Delete Book",
+      local_library_url: local_library_url,
+      home_url: home_url,
+      book: book,
+      bookinstance_list: allBookInstances,
+    });
+  } else {
+    await Book.findByIdAndDelete(req.body.bookid, book).exec();
+    res.redirect(all_books_url);
+  }
 });
 
 module.exports.book_update_get = asyncHandler(async (req, res, next) => {

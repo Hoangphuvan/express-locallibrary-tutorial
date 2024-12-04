@@ -1,0 +1,28 @@
+extends lb-layout
+
+block main-content
+    h1 Title: #{book.title}
+    if bookinstance_list.length > 0
+        div(style='margin-left:20px;margin-right:20px')
+            p Following book copies must be deleted before deleting this book: 
+            h2 Copies:
+            hr
+            each bookinstance in bookinstance_list
+                if bookinstance.status === 'Available'
+                    p.text-success #{bookinstance.status} 
+                else if bookinstance.status === 'Maintenance'
+                    p.text-danger #{bookinstance.status} 
+                else 
+                    p.text-warning #{bookinstance.status} 
+                p #[strong ID:] 
+                    a(href=bookinstance.url) #{bookinstance._id}
+                p #[strong Imprint:] #{bookinstance.imprint}
+                p #[trong Date when book available:] #{bookinstance.due_back_yyyy_mm_dd}
+                hr
+    else 
+        p Do you really want to delete this book?
+        form(method='POST')
+            input.form-control(type='hidden' value=book._id name='bookid')
+            button.btn.btn-primary(type='submit') Submit
+
+

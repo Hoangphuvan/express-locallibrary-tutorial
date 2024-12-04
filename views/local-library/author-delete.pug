@@ -13,7 +13,7 @@ block main-content
                         a(href=book.url) #{book.title}
                         p= book.summary
     else
-        p #[strong Do you really want to delete this author?]
+        p Do you really want to delete this author?
         hr
         form(method='POST')
             input.form-control(type='hidden' name='authorid' value=author._id)
