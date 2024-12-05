@@ -1,0 +1,18 @@
+extends lb-layout
+
+block main-content
+    h1 #[strong Name:] #{genre.name}
+    div(style='margin-left:20px;margin-top:20px')
+        if genre_books.length > 0
+            p Deleting the following books before deleting the genre:
+            ol
+                each book in genre_books
+                    li
+                        a(href=book.url) #{book.title}
+                        p #{book.summary}
+        else
+            p Do you really want to delete this genre?
+            form(method='POST')
+                input(type='hidden'  value=genre._id name='genreid')
+                button.btn.btn-primary(type='submit') Submit
+
