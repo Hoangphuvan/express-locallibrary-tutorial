@@ -105,12 +105,53 @@ module.exports.bookinstance_delete_post = asyncHandler(
 
 module.exports.bookinstance_update_get = asyncHandler(
   async (req, res, next) => {
-    res.send("Not implemented");
+    const [bookinstance, allbooks] = await Promise.all([
+      Bookinstance.findById(req.params.id).exec(),
+      Book.find().sort({ title: 1 }).exec(),
+    ]);
+    res.render("bookinstance-form", {
+      title: "Update Book Instance",
+      local_library_url: local_library_url,
+      home_url: home_url,
+      bookinstance: bookinstance,
+      book_list: allbooks,
+    });
   }
 );
 
-module.exports.bookinstance_update_post = asyncHandler(
-  async (req, res, next) => {
-    res.send("Not implemented");
-  }
-);
+module.exports.bookinstance_update_post = [
+  body("book", "Book must be specified.").trim().isLength({ min: 1 }).escape(),
+  body("imprint", "Imprint must be specfied.")
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  body("status").escape(),
+  body("due_back", "Due back is invalid.")
+    .optional({ values: "falsy" })
+    .trim()
+    .isISO8601(),
+  asyncHandler(async (req, res, next) => {
+    const bookinstance = new Bookinstance({
+      book: req.body.book,
+      imprint: req.body.imprint,
+      status: req.body.status,
+      due_back: req.body.due_back,
+      _id: req.params.id,
+    });
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      const allbooks = await Book.find().sort({ title: 1 }).exec();
+      res.render("bookinstance-form", {
+        title: "Update Book Instance",
+        local_library_url: local_library_url,
+        home_url: home_url,
+        book_list: allbooks,
+        bookinstance: bookinstance,
+        errors: errors.array(),
+      });
+    } else {
+      await Bookinstance.findByIdAndUpdate(req.params.id, bookinstance);
+      res.redirect(bookinstance.url);
+    }
+  }),
+];

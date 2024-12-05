@@ -10,7 +10,7 @@ block main-content
                 if book_list
                     each book in book_list
                         if bookinstance
-                            if bookinstance.book === book._id
+                            if bookinstance.book.toString() === book._id.toString()
                                 option(value=book._id selected) #{book.title}
                             else
                                 option(value=book._id) #{book.title}
