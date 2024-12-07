@@ -19,6 +19,7 @@ How to run the app:
     npm run start_linux if run on linux os
     npm run run_windows_command_prompt if run on windows os
 
+certs folder contain ssl for sakedev.com domain
 Link to generate ssl for free. expired day: Feb 24, 2025
 
 Curl test:
