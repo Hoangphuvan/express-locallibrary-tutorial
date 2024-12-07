@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
-    "restart_on_file_changes": "nodemon ./bin/www",
+    "start": "node ./bin/local-library-www",
+    "restart_on_file_changes": "nodemon ./bin/local-library-www",
     "run_linux": "DEBUG=express-locallibrary-tutorial:* npm run restart_on_file_changes",
     "run_windows_command_prompt": "SET DEBUG=express-locallibrary-tutorial:* & npm run restart_on_file_changes"
   },
