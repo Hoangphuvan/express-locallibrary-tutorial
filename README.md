@@ -39,3 +39,14 @@ body->raw ->json
 "date_of_birth":"2024-03-12",
 "date_of_death":"2024-03-12"
 }
+
+- create user for mongodb
+
+db.createUser(
+{
+user: "hoang",
+pwd: passwordPrompt(),
+roles: [ { role: "readWriteAnyDatabase", db: "admin" },
+{ role: "dbAdminAnyDatabase", db: "admin" }]
+}
+)
