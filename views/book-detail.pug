@@ -1,6 +1,6 @@
-extends lb-layout
+extends layout
 
-block main-content
+block content
     h1 Title: #{book.title}
     p #[strong Author:] 
         a(href=book.author.url) #{book.author.name}

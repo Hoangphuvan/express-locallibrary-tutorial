@@ -1,11 +1,11 @@
-const Genre = require("../../models/local-library/genre");
-const Book = require("../../models/local-library/book");
+const Genre = require("../models/genre");
+const Book = require("../models/book");
 const asyncHandler = require("express-async-handler");
 const {
   local_library_url,
   all_genres_url,
-} = require("../../constants/local-library-constant");
-const { home_url } = require("../../constants/app-constant");
+} = require("../constants/local-library-constant");
+const { home_url } = require("../constants/app-constant");
 
 const { body, validationResult } = require("express-validator");
 

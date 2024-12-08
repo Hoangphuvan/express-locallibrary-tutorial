@@ -15,10 +15,7 @@ var { mongo_db } = require("./constants/db-connection-string");
 var app = express();
 
 // view engine setup
-app.set("views", [
-  path.join(__dirname, "views"),
-  path.join(__dirname, "views/local-library"), // added by hoang
-]);
+app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
 
 app.use(logger("dev"));
@@ -27,8 +24,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/", indexRouter);
-app.use("/users", usersRouter);
+//app.use("/", indexRouter);
+//app.use("/users", usersRouter);
 app.use(local_library_url, localLibraryRouter);
 
 // added by hoang: https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/Introduction#handling_errors

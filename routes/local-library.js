@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
 
-const author_controller = require("../controllers/local-library/authorController");
-const book_controller = require("../controllers/local-library/bookController");
-const bookinstance_controller = require("../controllers/local-library/bookinstanceController");
-const genre_controller = require("../controllers/local-library/genreController");
+const author_controller = require("../controllers/authorController");
+const book_controller = require("../controllers/bookController");
+const bookinstance_controller = require("../controllers/bookinstanceController");
+const genre_controller = require("../controllers/genreController");
 
 router.get("/author/create", author_controller.author_create_get);
 router.post("/author/create", author_controller.author_create_post);

@@ -1,22 +1,14 @@
 extends layout
 
 block content
-  div(style='margin-left:20px;text-align:20px; text-align: center;margin: auto;')
-    div
-      p Developer
-      p Tel: 0937 199 499
-    div
-      img(src="/images/zalo.jpg" style='width:300px;height:300px;')
-  div(style='margin-left:20px;margin-top:20px')
-    dl
-      dt 
-        h2 Projects:
-      dd(style='margin-left:20px;margin-top:20px')
-        a(href=local_library_url) Local Library
-        |, the website are using the following main parts:
-        ul
-          li Node.js is an open-source and cross-platform Javascript runtime enviroment.
-          li Express web framework(backend) for Node.js.
-          li Pug template engine.
-          li MongoDB database.
-        p #[strong Description:] TBD
+    h1= title
+    p Welcome to the local library webiste.
+    hr
+    h2 Dynamic content
+    p The library has the following record count: 
+    ul
+        li #[strong Books:] !{book_count}
+        li #[strong Copies:] !{book_instance_count}
+        li #[strong Copies available:] !{book_instance_available_count}
+        li #[strong Authors:] !{author_count}
+        li #[strong Genres:] !{genre_count}

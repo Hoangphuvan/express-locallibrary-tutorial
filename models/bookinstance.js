@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { bookinstance_url } = require("../../constants/local-library-constant");
+const { bookinstance_url } = require("../constants/local-library-constant");
 const { DateTime } = require("luxon");
 
 const BookinstanceSchema = new mongoose.Schema({

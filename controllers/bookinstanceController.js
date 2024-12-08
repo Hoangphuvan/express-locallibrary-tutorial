@@ -1,11 +1,11 @@
-const Bookinstance = require("../../models/local-library/bookinstance");
-const Book = require("../../models/local-library/book");
+const Bookinstance = require("../models/bookinstance");
+const Book = require("../models/book");
 const asyncHandler = require("express-async-handler");
 const {
   local_library_url,
   all_bookinstances_url,
-} = require("../../constants/local-library-constant");
-const { home_url } = require("../../constants/app-constant");
+} = require("../constants/local-library-constant");
+const { home_url } = require("../constants/app-constant");
 const { body, validationResult } = require("express-validator");
 
 module.exports.bookinstance_list = asyncHandler(async (req, res, next) => {

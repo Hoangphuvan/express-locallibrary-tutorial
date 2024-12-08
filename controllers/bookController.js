@@ -1,13 +1,13 @@
-const Book = require("../../models/local-library/book");
-const BookInstance = require("../../models/local-library/bookinstance");
-const Genre = require("../../models/local-library/genre");
-const Author = require("../../models/local-library/author");
+const Book = require("../models/book");
+const BookInstance = require("../models/bookinstance");
+const Genre = require("../models/genre");
+const Author = require("../models/author");
 const asyncHandler = require("express-async-handler");
 const {
   local_library_url,
   all_books_url,
-} = require("../../constants/local-library-constant");
-const { home_url } = require("../../constants/app-constant");
+} = require("../constants/local-library-constant");
+const { home_url } = require("../constants/app-constant");
 const { body, validationResult } = require("express-validator");
 
 module.exports.index = asyncHandler(async (req, res, next) => {
@@ -24,10 +24,10 @@ module.exports.index = asyncHandler(async (req, res, next) => {
     Genre.countDocuments().exec(),
     Author.countDocuments().exec(),
   ]);
-  res.render("lb-index", {
+  res.render("index", {
     local_library_url: local_library_url,
     home_url: home_url,
-    title: "Local Library Home",
+    title: "Local Library",
     book_count: numBooks,
     book_instance_count: numBookInstances,
     book_instance_available_count: numAvailableBookInstances,

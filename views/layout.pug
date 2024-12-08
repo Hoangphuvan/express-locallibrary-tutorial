@@ -10,6 +10,36 @@ html(lang="en")
         script(src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous")
         script(src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous")
         link(rel='stylesheet' href='/stylesheets/style.css')
-    body
-        block content
-        block foot
+
+body 
+    div(class='container-fluid')
+        div(class='row')
+            div(class='col-sm-2')
+                block sidebar
+                    ul(class='sidebar-nav')
+                        li
+                            a(href=home_url) Home
+                        li
+                        hr
+                        li
+                            a(href=local_library_url) Local library
+                        li
+                            a(href=local_library_url + '/books') All books
+                        li
+                            a(href=local_library_url + '/authors') All authors
+                        li
+                            a(href=local_library_url + '/genres') All genres
+                        li
+                            a(href=local_library_url + '/bookinstances') All book instances
+                        li
+                            hr
+                        li
+                            a(href=local_library_url + '/author/create') Create new author
+                        li
+                            a(href=local_library_url + '/genre/create') Create new genre
+                        li
+                            a(href=local_library_url + '/book/create') Create new book
+                        li
+                            a(href=local_library_url + '/bookinstance/create') Create new book instance (copy)
+            div(class='col-sm-10')
+                block content
